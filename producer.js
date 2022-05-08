@@ -1,11 +1,13 @@
 ﻿const { Kafka } = require("kafkajs")
 const emailData = require("./dummy.json")
 
+const topicName = process.argv[2]
+
 async function createProducer(){
     try {
         const kafka = new Kafka({
             clientId: "bbtProjectEmail",
-            brokers: ["192.168.1.198:9092"]
+            brokers: ["localhost:9092"]
         })
 
         const producer = kafka.producer();
@@ -18,7 +20,7 @@ async function createProducer(){
             }
         })
         const messageResult = await producer.send({
-            topic: "EMailTopic4",
+            topic: topicName,
             messages: emailDataForKafka
         })
         console.log(`Message Result value => ${JSON.stringify(messageResult)}`)

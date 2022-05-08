@@ -1,5 +1,7 @@
 ﻿const { Kafka } = require("kafkajs")
 
+const topicName = process.argv[2]
+
 function sleep(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
@@ -9,7 +11,7 @@ function sleep(ms) {
 async function createConsumer() {
     const kafka = new Kafka({
         clientId: "bbtProjectEmail",
-        brokers:["192.168.1.198:9092"]
+        brokers:["localhost:9092"]
     });
     
     const consumer = kafka.consumer({
@@ -18,7 +20,7 @@ async function createConsumer() {
     await consumer.connect();
 
     await consumer.subscribe({
-        topic: "EMailTopic4",
+        topic: topicName,
         fromBeginning: true
     })
     

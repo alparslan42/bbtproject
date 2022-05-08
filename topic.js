@@ -1,10 +1,12 @@
 ﻿const {Kafka, logLevel} = require("kafkajs")
 
+const topicName = process.argv[2]
+
 async function createTopic(){
     try {
         const kafka = new Kafka({
             clientId: "bbtProjectEmail",
-            brokers: ["192.168.1.198:9092"]
+            brokers: ["localhost:9092"]
         });
 
         const admin = kafka.admin();
@@ -13,7 +15,7 @@ async function createTopic(){
         await admin.createTopics({
             topics:[
                 {
-                    topic: "EMailTopic4",
+                    topic: topicName,
                     numPartitions:1
                 }
             ]
